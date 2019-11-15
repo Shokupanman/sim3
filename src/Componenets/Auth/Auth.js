@@ -38,6 +38,7 @@ class Auth extends Component {
     return (
       <div>
         <div>
+          <h1>AAAAAAAAAAAAAAAAAH</h1>
           <input />
           <button onClick={this.login}>ログイン *Login*:</button>
         </div>

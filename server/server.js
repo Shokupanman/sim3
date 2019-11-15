@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const massive = require('massive')
 const session = require('express-session')
-const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRECT } = process.env
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 const ctrl = require('./controller')
 
 const app = express()
@@ -12,7 +12,7 @@ app.use(
   session({
     resave: false,
     saveUninitialized: false,
-    secret: SESSION_SECRECT
+    secret: SESSION_SECRET
   })
 )
 
