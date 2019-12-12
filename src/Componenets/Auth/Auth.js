@@ -43,21 +43,38 @@ class Auth extends Component {
       })
       .catch(err => alert(err.response.data.message))
   }
-
   render() {
     return (
-      <div>
-        <div>
-          <h1>AAAAAAAAAAAAAAAAAH</h1>
-          <input />
-          <button onClick={this.login}>ログイン *Login*:</button>
+      <div className="login-back">
+        <div className="login-box">
+          <img src={logo} />
+          <h1>Helo</h1>
+          <div className="input-cont">
+            <p>Username:</p>
+            <input
+              name="username"
+              type="text"
+              onChange={e => this.handleChange(e.target)}
+            />
+          </div>
+          <div className="input-cont">
+            <p>Password:</p>
+            <input
+              name="password"
+              type="text"
+              onChange={e => this.handleChange(e.target)}
+            />
+          </div>
+          <div className="log-reg">
+            <button onClick={this.userLogin}>Login</button>
+            <button onClick={this.userRegister}>Register</button>
+          </div>
         </div>
-        <input />
-        <button onClick={this.register}>登録 *Register*:</button>
-        <div></div>
       </div>
     )
   }
 }
-
-export default connect(null, { updateUserInfo })(Auth)
+function mapStateToProps(state) {
+  return state
+}
+export default connect(mapStateToProps, { setUser })(Auth)
