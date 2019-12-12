@@ -3,11 +3,11 @@ import './App.css'
 import routes from './routes'
 import Nav from './Componenets/Nav/Nav'
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <Nav />
+        <Nav history={props.history} />
         {routes}
       </header>
     </div>

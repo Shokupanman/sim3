@@ -1,35 +1,38 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-function Nav(props) {
-  if (props.location.pathname !== '/') {
-    return (
-      <div>
-        <Link to="/dashboard">
-          <button>HOME</button>
-        </Link>
-        <Link to="/post/:postid">
-          <button>NEW POSTIES</button>
-        </Link>
-        <Link to="/">
-          <button>LOGOUTIEZ</button>
-        </Link>
+import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import { setUser } from '../ducks/reducer'
 
-        <div>
-          <div
-            className="nav_profile_pic"
-            style={{ backgroundImage: `url('${props.profile_img}')` }}
-          ></div>
-          <p>{props.name}</p>
-        </div>
-      </div>
-    )
-  } else {
-    return null
+const Nav = props => {
+  console.log(props)
+
+  const logOut = () => {
+    axios.delete('/auth/logout').then(() => {
+      props.setUser({ username: '', profile_pic: '', id: 0 })
+      props.history.push('/')
+    })
   }
+
+  return props.username ? (
+    <nav>
+      <div className="profile-img">
+        <img className="profile-pic" src={props.img} alt="" />
+      </div>
+      <div className="prof-name">{props.username}</div>
+      <Link to="/dashboard">dashboard</Link>
+      <Link to="/new">New</Link>
+      quit
+    </nav>
+  ) : null
 }
 
 function mapStateToProps(state) {
-  return state
+  return {
+    username: state.username,
+    img: state.profile_pic
+  }
 }
-export default withRouter(connect(mapStateToProps)(Nav))
+
+export default withRouter(connect(mapStateToProps, { setUser })(Nav))

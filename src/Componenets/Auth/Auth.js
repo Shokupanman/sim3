@@ -11,7 +11,7 @@ class Auth extends Component {
       password: ''
     }
     this.userLogin = this.userLogin.bind(this)
-    this.userRegister = this.userRegister.bind(this)
+    this.register = this.register.bind(this)
   }
 
   handleChange = trg => {
@@ -33,7 +33,7 @@ class Auth extends Component {
       })
   }
 
-  userRegister = function() {
+  register = function() {
     axios
       .post('/auth/register', this.state)
       .then(res => {
@@ -66,8 +66,8 @@ class Auth extends Component {
             />
           </div>
           <div className="log-reg">
-            <button onClick={this.userLogin}>Login</button>
-            <button onClick={this.userRegister}>Register</button>
+            <button onClick={this.userLogin}>ログイン</button>
+            <button onClick={this.register}>登録</button>
           </div>
         </div>
       </div>
