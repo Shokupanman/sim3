@@ -4,34 +4,44 @@ import { connect } from 'react-redux'
 import { updateUserInfo } from '../../ducks/reducer'
 
 class Auth extends Component {
-  state = {
-    user_name: '',
-    password: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: '',
+      password: ''
+    }
+    this.userLogin = this.userLogin.bind(this)
+    this.userRegister = this.userRegister.bind(this)
   }
 
-  handleChange = (key, value) => {
-    this.setState({ [key]: value })
+  handleChange = trg => {
+    const { name, value } = trg
+    this.setState({ [name]: value })
   }
 
-  register = () => {
-    const { user_name, password } = this.state
+  userLogin = function() {
     axios
-      .post('/auth/register', { user_name, password })
+      .post('/auth/login', this.state)
       .then(res => {
-        console.log(res.data)
-        this.props.updateUserInfo(res.data.user)
+        this.props.setUser(res.data.user)
+        alert(res.data.message)
+        this.setState({ username: '', password: '' })
+        this.props.history.push('/dashboard')
       })
       .catch(err => {
-        console.log(err.response.data.message)
+        alert(err.response.data.message)
       })
   }
 
-  login = () => {
-    const { user_name, password } = this.state
-    axios.post('/auth/login', { user_name, password }).then(res => {
-      this.props.updateUserInfo(res.data.user)
-      this.props.history.push('/dashboard')
-    })
+  userRegister = function() {
+    axios
+      .post('/auth/register', this.state)
+      .then(res => {
+        this.props.setUser(res.data.user)
+        alert(res.data.message)
+        this.setState({ username: '', password: '' })
+      })
+      .catch(err => alert(err.response.data.message))
   }
 
   render() {
